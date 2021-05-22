@@ -32,6 +32,7 @@ body {
   
 }
 
+
 /* Убираем ненависные точки у списков */
 .list {
   list-style: none;
@@ -99,19 +100,37 @@ border-bottom: 1px solid #ECECEC;
 }
 
 .nav {
+  
   display: flex;
   margin-left: 93px;
   
 }
 
 .nav-item {
+  position: relative;
+  
   display: block;
   padding: 32px 0;
 }
+
+
 /* Маржины навигационных ссылок */
 .nav .nav-item + .nav-item {
   margin-left: 50px;
   
+}
+
+
+.nav .current::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: block;
+  width: 100%; 
+  height: 4px;
+  background-color: var(--link-hover-focus-web-color);
+  border-radius: 2px;
 }
 
 /* Навигационные ссылки хедера */
@@ -129,10 +148,18 @@ border-bottom: 1px solid #ECECEC;
 
 
 /* Навигационные ссылки при ховере и фокусе */
-.site-nav .link:focus,
-.site-nav .link:hover {
-  color: var(--link-hover-focus-web-color);
+
+.header-page .link {
+  
+  transition-property: color;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
 }
+.header-page .link:focus,
+.header-page .link:hover {
+  color: var(--link-hover-focus-web-color);
+} 
 
 /* Оборачиваю в div контакты хедера */
 .contacts-items {
@@ -158,22 +185,14 @@ border-bottom: 1px solid #ECECEC;
 .contact-link {
   display: flex;
   align-items: center;
+
 }
 
 .icon-contacts {
   display: inline-block;
   margin-right: 10px;
+  fill: currentColor;
 }
-
-/* Контактные ссылки при ховере и фокусе + svg*/
-.contacts-items .link:focus,
-.contacts-items .link:hover {
-  color: var(--link-hover-focus-web-color);
-  fill: var(--link-hover-focus-web-color);
-}
-
-
-/* Подсветка текущей старницы  */
 
 /* Секция герой */
 .hero {
@@ -194,13 +213,12 @@ border-bottom: 1px solid #ECECEC;
   background-size: cover;
   background-position: center;
   
-
   background-color: var(--secondary-background-color);
   
 }
-.site-nav .link.current {
-  color: var(--link-hover-focus-web-color);
-}
+
+
+
 /* Заголовок-герой */
 .title-hero {
   color: var(--primary-background-color);
@@ -231,6 +249,10 @@ border-bottom: 1px solid #ECECEC;
   padding: 10px 32px;
   display: inline-block;
   text-align: center;
+
+  transition-property: background-color, color;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Кнопка при ховере и фокусе */
@@ -323,6 +345,36 @@ border-bottom: 1px solid #ECECEC;
 .activity-list-item + .activity-list-item {
   margin-left: 30px;
 }
+.box {
+  position: relative;
+}
+/* Контейнеры с подписями */
+.activity-trumb {
+  position: absolute;
+  bottom: 0;
+  z-index: 1;  
+  
+  display: flex;
+  width: 370px;
+  height: 70px;
+  justify-content: center;
+  align-items: center;  
+  
+  background-color: rgba(47, 48, 58, 0.8);
+}
+
+.activity-trumb-description {
+   
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.14;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--primary-background-color);
+
+}
+
+
 
 /* Секция "Наша команда" */
 .team {
@@ -378,7 +430,10 @@ margin-bottom: 10px;
   justify-content: center;
   width: 206px;
   margin: 0 auto;
+
+ 
 }
+
 
 /* Задаем марджины (НАПОМИНАНИЕ: СУТЬ СЕЛЕКТОРА - ПРИМЕНЯТЬ НА ВСЕХ КРОМЕ ПЕРВОГО) */
 .social-link + .social-link {
@@ -393,6 +448,11 @@ margin-bottom: 10px;
   width: 44px;
   height: 44px;
   color: var(--socil-links-color);
+   /* Эффект перехода для соц ссылок членов команды при ховере и фокусе */
+
+  transition-property: background-color, color, border-radius;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Применяем иконкам внутри ссылок свойство "Текущий цвет"/ При
@@ -441,7 +501,11 @@ margin-bottom: 10px;
   border: 1px solid var(--socil-links-color);
   border-radius: 4px;
   fill: var(--socil-links-color);
-  
+
+  transition-property: fill, border-color;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
 }
 
 /* Передаем текущий цвет на логотипы */
@@ -453,12 +517,12 @@ margin-bottom: 10px;
 .client-link:focus,
 .client-link:hover {
   fill: var(--link-hover-focus-web-color);
-  border: 1px solid var(--link-hover-focus-web-color);
+  border-color: var(--link-hover-focus-web-color);
 }
 
 
 
-/* Подвал */
+/* ПОДВАЛ */
 .footer-page {
 padding-top: 60px;
 padding-bottom: 60px;
@@ -496,10 +560,6 @@ padding-bottom: 60px;
   text-decoration: none;
   
 }
-.footer-link:hover,
-.footer-link:focus {
-  color: var(--link-hover-focus-web-color);
-}
 
 /* Оформление адреса */
 .footer-address {
@@ -520,6 +580,11 @@ margin-bottom: 9px;
 .footer-address .link {
   color: var(--footer-link-text-color);
   text-decoration: none;
+
+  transition-property: color;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  
 }
 
 /* Ссылки адреса при ховере и футере */
@@ -571,6 +636,10 @@ margin-bottom: 9px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 50%;
   color: var(--galery-background);
+
+  transition-property: background-color;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .footer-social-icon {
@@ -590,9 +659,9 @@ margin-bottom: 9px;
 /* Секция "Портфолио" */
 
 .filter {
-display: flex;
-justify-content: center;
-margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
 
   font-weight: 500;
   font-size: 16px;
@@ -610,6 +679,10 @@ margin-bottom: 50px;
 
   font-family: inherit;
   cursor: pointer;
+
+  transition-property: background-color, color, box-shadow;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Отступы для кнопок фильтра портфолио */
@@ -723,14 +796,24 @@ margin-bottom: 50px;
   background-color: var(--primary-background-color);
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 50%;
+  cursor: pointer;
+
+  transition-property: color;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.close-button:hover,
+.close-button:focus {
+  color: var(--link-hover-focus-web-color);
+}
 
 .icon-button {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  fill: currentColor;
   
 }
 
