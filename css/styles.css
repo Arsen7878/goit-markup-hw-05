@@ -8,6 +8,7 @@
 /* Цвет ссылок в футере rgba(255, 255, 255, 0.6) */
 /* Цвет обрамления галереи #eeeeee */
 /* Цвет социальных ссылок и обводки #AFB1B8; */
+/* timing-cubic */
 
 
 /* Утилиты для страниц */
@@ -22,6 +23,7 @@
   --footer-link-text-color: rgba(255, 255, 255, 0.6);
   --galery-background: #eeeeee;
   --socil-links-color: #AFB1B8;
+  --animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 /* Тело страницы */
 body {
@@ -119,13 +121,14 @@ border-bottom: 1px solid #ECECEC;
   margin-left: 50px;
   
 }
-
+.nav .current {
+  color: var(--link-hover-focus-web-color);
+}
 
 .nav .current::after {
   content: "";
   position: absolute;
   bottom: 0;
-  left: 0;
   display: block;
   width: 100%; 
   height: 4px;
@@ -144,18 +147,18 @@ border-bottom: 1px solid #ECECEC;
   font-size: 14px;
   line-height: 1.14;
   letter-spacing: 0.02em;
+
+  transition-property: color;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header-page .current {
+  color: var(--link-hover-focus-web-color);
 }
 
 
 /* Навигационные ссылки при ховере и фокусе */
-
-.header-page .link {
-  
-  transition-property: color;
-  transition-duration: 250ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-
-}
 .header-page .link:focus,
 .header-page .link:hover {
   color: var(--link-hover-focus-web-color);
@@ -522,7 +525,7 @@ margin-bottom: 10px;
 
 
 
-/* ПОДВАЛ */
+/*! =======================ПОДВАЛ===================== */
 .footer-page {
 padding-top: 60px;
 padding-bottom: 60px;
@@ -607,6 +610,7 @@ margin-bottom: 9px;
   display: flex;
   align-items: baseline;
 }
+
 .container-join {
   display: flex;
   flex-direction: column;
@@ -654,7 +658,7 @@ margin-bottom: 9px;
 
 
 
-/* СТРАНИЦА ПОРТФОЛИО  */
+/* !============CТРАНИЦА ПОРТФОЛИО============================  */
 /* МЕИН */
 /* Секция "Портфолио" */
 
@@ -709,16 +713,61 @@ margin-bottom: 9px;
 
 /* Отступы для элементов галереи и рамки */
 .galery-item {
+  
   width: 370px;
   margin: 15px;
   
- 
+  
+  
 }
 
-/* Эффуект тени при ховере */
+.galery-trumb {
+  position: relative;
+  overflow: hidden;  
+}
+
+.overlay-galery {
+  position: absolute;
+  bottom: 0px;
+  left: 0px; 
+  display: block;
+  content: " ";
+  width: 100%;
+  height: 100%;
+  
+  transform: translateY(100%);
+  
+  transition-property: transform;
+  transition-duration: 250ms;
+  transition-timing-function: var(--animation-timing-function);
+
+}
+
+.overlay-galery > p {
+  padding: 64px 24px;
+
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.56;
+  color: var(--primary-background-color);
+  background-color: rgba(33, 150, 243, 0.9);
+}
+
+.galery-item:hover .overlay-galery {
+  transform: translateY(0);
+  
+}
+
+
+
+
+/* Эффект тени при ховере */
 .galery-item:hover {
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06), 1px 4px 6px rgba(0, 0, 0, 0.16);
 }
+
+
+
 /* Скрываем подчеркивание и цвет ссылок галереи */
 .galery .link {
   text-decoration: none;
@@ -755,7 +804,7 @@ margin-bottom: 9px;
   border-bottom: 1px solid #EEEEEE;
 }
 
-/* Модальное окно */
+/*! ====================Модальное окно===================== */
 .is-hidden {
   opacity: 0;
   pointer-events: none;
@@ -774,6 +823,7 @@ margin-bottom: 9px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 2;
 
   min-width: 528px;
   min-height: 581px;
@@ -790,7 +840,6 @@ margin-bottom: 9px;
   right: 8px;
   width: 30px ;
   height: 30px;
-
   padding: 0px;
 
   background-color: var(--primary-background-color);
